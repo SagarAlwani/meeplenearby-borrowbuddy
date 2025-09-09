@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { searchGames, getNearbyUsers } from "@/lib/database";
 
 interface SearchResult {
   id: string;
@@ -31,34 +32,42 @@ const SearchBar = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Mock search results for demo
-  const mockSearch = (searchQuery: string): SearchResult[] => {
+  // Real search using database
+  const performSearch = async (searchQuery: string): Promise<SearchResult[]> => {
     if (!searchQuery.trim()) return [];
     
-    const games = [
-      { id: "1", title: "Wingspan", type: "game" as const },
-      { id: "2", title: "Catan", type: "game" as const },
-      { id: "3", title: "Wingspan: European Expansion", type: "game" as const },
-      { id: "4", title: "Azul", type: "game" as const },
-    ];
-
-    const players = [
-      { id: "p1", title: "Alex (2.1km away)", type: "player" as const },
-      { id: "p2", title: "Sarah (3.4km away)", type: "player" as const },
-    ];
-
-    const filtered = [
-      ...games.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase())),
-      ...players.filter(p => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    ];
-
-    return filtered.slice(0, 5);
+    try {
+      const [games, users] = await Promise.all([
+        searchGames(searchQuery),
+        getNearbyUsers()
+      ]);
+      
+      const gameResults: SearchResult[] = games.map(game => ({
+        id: game.id,
+        title: game.title,
+        type: "game" as const,
+        coverUrl: game.coverUrl
+      }));
+      
+      const userResults: SearchResult[] = users
+        .filter(user => user.displayName.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map(user => ({
+          id: user.id,
+          title: `${user.displayName} (${user.city})`,
+          type: "player" as const
+        }));
+      
+      return [...gameResults, ...userResults].slice(0, 5);
+    } catch (error) {
+      console.error('Search error:', error);
+      return [];
+    }
   };
 
   // Debounced search
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const searchResults = mockSearch(query);
+    const timer = setTimeout(async () => {
+      const searchResults = await performSearch(query);
       setResults(searchResults);
       setIsOpen(query.length > 0 && searchResults.length > 0);
       onSearch?.(query);

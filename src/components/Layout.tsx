@@ -1,7 +1,9 @@
-import { Dice6, Map, User, Search, Plus } from "lucide-react";
+import { Dice6, Map, User, Search, Plus, LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
+import Footer from "./Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,6 +11,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const navItems = [
     { icon: Search, label: "Discover", path: "/" },
@@ -23,27 +26,40 @@ const Layout = ({ children }: LayoutProps) => {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 font-display font-bold text-xl gradient-text">
             <Dice6 className="h-6 w-6 text-primary" />
-            BoardBuddy
+            Jaipur Meeples
           </Link>
           
-          <Button
-            variant="outline"
-            size="sm"
-            className="rounded-full"
-            asChild
-          >
-            <Link to="/add-game">
-              <Plus className="h-4 w-4 mr-1" />
-              Add Game
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full"
+              asChild
+            >
+              <Link to="/add-game">
+                <Plus className="h-4 w-4 mr-1" />
+                Add Game
+              </Link>
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="pb-20">
+      <main className="pb-24">
         {children}
       </main>
+      
+      <Footer />
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 z-40 glass-panel border-t">
