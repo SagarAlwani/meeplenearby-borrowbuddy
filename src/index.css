@@ -2,41 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* BoardBuddy Design System - Playful, modern board game app
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core backgrounds */
+    --background: 25 15% 98%;
+    --foreground: 200 25% 15%;
 
+    /* Card system */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 200 25% 15%;
+    --card-shadow: 200 20% 85%;
 
+    /* Popover & modals */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 200 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Brand colors - BoardBuddy orange to teal */
+    --primary: 15 85% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 15 85% 70%;
+    --primary-dark: 15 85% 50%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Deep teal */
+    --secondary: 195 45% 25%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 195 45% 35%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent - Warm green for success */
+    --accent: 145 60% 45%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 145 60% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Muted colors */
+    --muted: 25 10% 95%;
+    --muted-foreground: 200 15% 45%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* UI elements */
+    --border: 25 15% 90%;
+    --input: 25 15% 96%;
+    --ring: 15 85% 60%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Interactive states */
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    /* Game condition colors */
+    --condition-new: 145 60% 45%;
+    --condition-like-new: 60 50% 50%;
+    --condition-well-loved: 35 65% 55%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--primary-light)), hsl(var(--accent-light)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+
+    /* Shadows */
+    --shadow-card: 0 4px 20px -4px hsl(var(--card-shadow) / 0.3);
+    --shadow-card-hover: 0 8px 30px -6px hsl(var(--card-shadow) / 0.4);
+    --shadow-glass: 0 8px 32px -8px hsl(var(--primary) / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +89,47 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode with warm tones */
+    --background: 200 30% 8%;
+    --foreground: 25 15% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 200 25% 12%;
+    --card-foreground: 25 15% 95%;
+    --card-shadow: 200 30% 5%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 200 25% 12%;
+    --popover-foreground: 25 15% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 15 85% 65%;
+    --primary-foreground: 200 30% 8%;
+    --primary-light: 15 85% 75%;
+    --primary-dark: 15 85% 55%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 195 45% 35%;
+    --secondary-foreground: 25 15% 95%;
+    --secondary-light: 195 45% 45%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 145 60% 50%;
+    --accent-foreground: 200 30% 8%;
+    --accent-light: 145 60% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 200 20% 15%;
+    --muted-foreground: 200 15% 65%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --border: 200 25% 20%;
+    --input: 200 25% 15%;
+    --ring: 15 85% 65%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive: 0 85% 65%;
+    --destructive-foreground: 200 30% 8%;
+
+    --condition-new: 145 60% 50%;
+    --condition-like-new: 60 50% 55%;
+    --condition-well-loved: 35 65% 60%;
+
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.5);
+    --shadow-card-hover: 0 8px 30px -6px hsl(0 0% 0% / 0.6);
+    --shadow-glass: 0 8px 32px -8px hsl(var(--primary) / 0.3);
   }
 }
 
@@ -100,6 +139,87 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
+}
+
+@layer components {
+  /* Card hover effects */
+  .game-card {
+    @apply transition-all duration-300 cursor-pointer;
+    @apply hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1;
+  }
+
+  /* Glass effect for modals */
+  .glass-panel {
+    @apply backdrop-blur-md bg-card/80 border border-border/50;
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Condition badges */
+  .condition-new {
+    @apply bg-[hsl(var(--condition-new))] text-white;
+  }
+  
+  .condition-like-new {
+    @apply bg-[hsl(var(--condition-like-new))] text-white;
+  }
+  
+  .condition-well-loved {
+    @apply bg-[hsl(var(--condition-well-loved))] text-white;
+  }
+
+  /* Map pin styles */
+  .map-pin {
+    @apply rounded-full border-2 border-white shadow-lg;
+    @apply transition-transform duration-200 hover:scale-110;
+  }
+
+  /* Floating action button */
+  .fab {
+    @apply fixed bottom-6 right-6 rounded-full p-4;
+    @apply bg-primary text-primary-foreground shadow-lg;
+    @apply hover:scale-105 transition-transform duration-200;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  .animate-confetti {
+    animation: confetti 0.8s ease-out;
+  }
+  
+  .animate-bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+}
+
+/* Keyframes */
+@keyframes confetti {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.3) translateY(50px); opacity: 0; }
+  50% { transform: scale(1.05) translateY(-10px); opacity: 0.8; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
